@@ -49,9 +49,9 @@ export default function Home() {
             <a href="/a-propos">À propos</a>
             <a href="/activites">Activités</a>
             <a href="#valeurs">Nos valeurs</a>
-            <a href="#contact">Contact</a><a href="/actualites">Actualités</a>
+            <a href="/actualites">Actualités</a><a href="/galerie">Galerie</a><a href="/adhesion">Adhésion</a>
           </nav>
-          <a className="nav-cta" href="#rejoindre">Rejoindre AJECCH <span>↗</span></a>
+          <a className="nav-cta" href="/adhesion">Rejoindre AJECCH <span>↗</span></a>
         </div>
       </header>
 
@@ -68,7 +68,7 @@ export default function Home() {
             </p>
             <div className="hero-actions">
               <a className="button button-gold" href="#apropos">Découvrir l’association <span>→</span></a>
-              <a className="button button-outline" href="#rejoindre">Nous rejoindre</a>
+              <a className="button button-outline" href="/adhesion">Nous rejoindre</a>
             </div>
             <div className="hero-footnote">
               <span className="gold-line" />
@@ -176,7 +176,7 @@ export default function Home() {
           <div className="section-kicker">FAISONS ROUTE ENSEMBLE</div>
           <h2>Votre énergie a sa place<br />dans <em>notre communauté.</em></h2>
           <p>Vous souhaitez en savoir plus, participer ou soutenir une initiative ? Prenons contact.</p>
-          <a className="button button-gold" href="#contact">Prendre contact <span>→</span></a>
+          <a className="button button-gold" href="/adhesion">Demander à rejoindre <span>→</span></a>
         </div>
       </section>
 
@@ -190,7 +190,7 @@ export default function Home() {
           <div className="footer-contact">
             <span>RESTONS EN CONTACT</span>
             <a href="https://www.facebook.com/AJECCH" target="_blank" rel="noreferrer">Facebook AJECCH ↗</a>
-            <a href="https://www.facebook.com/AJECCH" target="_blank" rel="noreferrer">Contacter l’association ↗</a>
+            <a href="/galerie">Galerie ↗</a><a href="/adhesion">Adhésion ↗</a><a href="/notifications">Notifications ↗</a><a href="https://www.facebook.com/AJECCH" target="_blank" rel="noreferrer">Contacter l’association ↗</a>
           </div>
         </div>
         <div className="container footer-bottom">
