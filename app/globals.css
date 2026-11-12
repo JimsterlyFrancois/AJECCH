@@ -231,3 +231,55 @@ footer { background: #08172d; color: white; }
   .empty-news { padding: 27px 22px; }
   .news-aside { padding: 24px; }
 }
+
+
+/* Galerie, adhésion et notifications */
+.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px 22px; }
+.gallery-card { min-width: 0; background: white; border: 1px solid var(--line); }
+.gallery-art { position: relative; min-height: 235px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.gallery-art:before, .gallery-art:after { content: ""; position: absolute; border: 1px solid #ffffff55; border-radius: 50%; }
+.gallery-art:before { width: 230px; height: 230px; }
+.gallery-art:after { width: 160px; height: 160px; }
+.gallery-blue { background: linear-gradient(145deg, #174b86, #0b1d3a); color: #e7c982; }
+.gallery-gold { background: linear-gradient(145deg, #e7c982, #b88936); color: #0b1d3a; }
+.gallery-navy { background: linear-gradient(145deg, #152c4b, #071326); color: #e7c982; }
+.gallery-light { background: linear-gradient(145deg, #eaf1f8, #cbd9e8); color: #174b86; }
+.gallery-art-number { position: absolute; top: 17px; left: 19px; font-size: 10px; letter-spacing: .15em; }
+.gallery-art-symbol { font: 500 76px 'Playfair Display', Georgia, serif; z-index: 1; }
+.gallery-art-label { position: absolute; bottom: 17px; font-size: 8px; letter-spacing: .18em; }
+.gallery-card-copy { padding: 18px 20px 20px; }
+.gallery-card-copy span, .form-status { color: var(--gold); font-size: 9px; letter-spacing: .16em; font-weight: 700; }
+.gallery-card-copy h3 { margin: 8px 0 0; color: var(--navy); font: 600 20px 'Playfair Display', Georgia, serif; }
+.membership-layout, .notification-layout { display: grid; grid-template-columns: .9fr 1.1fr; gap: 65px; align-items: start; }
+.membership-intro > p, .notification-copy { color: #637080; font-size: 13px; line-height: 1.9; margin: 20px 0 30px; }
+.membership-step { display: flex; gap: 17px; padding: 18px 0; border-top: 1px solid var(--line); }
+.membership-step > span { color: var(--gold); font-size: 11px; }
+.membership-step strong { color: var(--navy); font-size: 13px; }
+.membership-step p { margin: 6px 0 0; color: #74808d; font-size: 11px; line-height: 1.7; }
+.registration-panel { padding: 32px; background: #f5f7fa; border-top: 3px solid var(--gold); }
+.registration-panel h2 { margin: 13px 0; font-size: 31px; }
+.registration-panel > p { color: #687584; font-size: 12px; line-height: 1.8; margin-bottom: 24px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 17px; }
+.registration-panel label { display: flex; flex-direction: column; gap: 8px; color: #344254; font-size: 11px; font-weight: 600; }
+.registration-panel input:not([type="checkbox"]), .registration-panel textarea { width: 100%; border: 1px solid #d8dfe7; border-radius: 0; padding: 13px 12px; background: white; color: var(--ink); font: 12px 'DM Sans', Arial, sans-serif; outline-offset: 2px; }
+.registration-panel input:focus, .registration-panel textarea:focus { outline: 2px solid #174b8655; border-color: var(--blue); }
+.form-full { grid-column: 1 / -1; }
+.form-privacy { color: #7b8794; font-size: 10px; line-height: 1.7; margin: 18px 0; }
+.registration-panel button:disabled { opacity: .65; cursor: not-allowed; transform: none; }
+.newsletter-panel { align-self: start; }
+.newsletter-panel form > label:first-child { margin: 22px 0; }
+.consent-row { display: flex !important; flex-direction: row !important; align-items: flex-start; gap: 10px !important; line-height: 1.6; font-weight: 400 !important; }
+.consent-row input { margin-top: 2px; accent-color: var(--blue); }
+.notification-list { padding-left: 18px; color: #637080; font-size: 12px; line-height: 2.3; }
+@media (max-width: 700px) {
+  .gallery-grid { grid-template-columns: 1fr 1fr; gap: 15px; }
+  .gallery-art { min-height: 155px; }
+  .gallery-art-symbol { font-size: 54px; }
+  .gallery-card-copy { padding: 14px; }
+  .gallery-card-copy h3 { font-size: 16px; }
+  .membership-layout, .notification-layout { grid-template-columns: 1fr; gap: 35px; }
+  .registration-panel { padding: 23px 18px; }
+  .registration-panel h2 { font-size: 27px; }
+  .form-grid { grid-template-columns: 1fr; }
+  .form-full { grid-column: auto; }
+}
