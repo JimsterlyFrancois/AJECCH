@@ -46,10 +46,10 @@ export default function Home() {
           </a>
           <nav className="main-nav" aria-label="Navigation principale">
             <a className="active" href="#accueil">Accueil</a>
-            <a href="#apropos">À propos</a>
-            <a href="#engagement">Nos engagements</a>
+            <a href="/a-propos">À propos</a>
+            <a href="/activites">Activités</a>
             <a href="#valeurs">Nos valeurs</a>
-            <a href="#contact">Contact</a>
+            <a href="#contact">Contact</a><a href="/actualites">Actualités</a>
           </nav>
           <a className="nav-cta" href="#rejoindre">Rejoindre AJECCH <span>↗</span></a>
         </div>
