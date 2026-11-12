@@ -190,7 +190,7 @@ export default function Home() {
           <div className="footer-contact">
             <span>RESTONS EN CONTACT</span>
             <a href="https://www.facebook.com/AJECCH" target="_blank" rel="noreferrer">Facebook AJECCH ↗</a>
-            <a href="mailto:contact@ajecch.org">Nous écrire ↗</a>
+            <a href="https://www.facebook.com/AJECCH" target="_blank" rel="noreferrer">Contacter l’association ↗</a>
           </div>
         </div>
         <div className="container footer-bottom">
