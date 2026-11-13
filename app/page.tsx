@@ -49,7 +49,10 @@ export default function Home() {
             <a href="/a-propos">À propos</a>
             <a href="/activites">Activités</a>
             <a href="#valeurs">Nos valeurs</a>
-            <a href="/actualites">Actualités</a><a href="/galerie">Galerie</a><a href="/adhesion">Adhésion</a>
+            <a href="/actualites">Actualités</a>
+            <a href="/galerie">Galerie</a>
+            <a href="/adhesion">Adhésion</a>
+            <a href="/notifications">Notifications</a><a href="/galerie">Galerie</a><a href="/adhesion">Adhésion</a>
           </nav>
           <a className="nav-cta" href="/adhesion">Rejoindre AJECCH <span>↗</span></a>
         </div>
