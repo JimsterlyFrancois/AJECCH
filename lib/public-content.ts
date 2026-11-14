@@ -73,17 +73,30 @@ export async function getPublishedPosts() {
 
   const { data, error } = await client
     .from("ajecch_posts")
-    .select("id,slug,title,excerpt,body,category,published_at,event_starts_at,event_ends_at,event_location,cover_media_id,cover_media:ajecch_media!ajecch_posts_cover_media_id_fkey(storage_path,source_url,is_visible)")
+    .select("id,slug,title,excerpt,body,category,published_at,event_starts_at,event_ends_at,event_location,cover_media_id")
     .eq("status", "published")
     .order("published_at", { ascending: false });
 
   if (error || !data) return [] as PublicPost[];
 
-  return data.map((row) => {
-    const post = row as PublicPost & {
-      cover_media?: { storage_path: string | null; source_url: string | null; is_visible: boolean }[];
-    };
-    const cover = post.cover_media?.[0];
+  const mediaIds = [...new Set(
+    (data as PublicPost[])
+      .map((post) => post.cover_media_id)
+      .filter((id): id is string => Boolean(id))
+  )];
+
+  if (mediaIds.length === 0) return data as PublicPost[];
+
+  const { data: media, error: mediaError } = await client
+    .from("ajecch_media")
+    .select("id,source_url,storage_path,is_visible")
+    .in("id", mediaIds);
+
+  if (mediaError) return data as PublicPost[];
+
+  const mediaById = new Map((media ?? []).map((item) => [item.id, item]));
+  return (data as PublicPost[]).map((post) => {
+    const cover = post.cover_media_id ? mediaById.get(post.cover_media_id) : null;
     const coverUrl = !cover || !cover.is_visible
       ? null
       : cover.storage_path
