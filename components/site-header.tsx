@@ -56,7 +56,7 @@ export default function SiteHeader({ active = "", logoUrl }: { active?: string; 
                 <img src={logoUrl} alt="Logo officiel de l’AJECCH" />
               ) : (
                 <span aria-hidden="true">A<span>J</span></span>
-              )}>
+              )}
             </span>
             <span className="brand-copy">
               <strong>AJECCH</strong>
