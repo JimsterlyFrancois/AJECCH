@@ -33,6 +33,14 @@ Aucune clé \`service_role\` n’est utilisée dans le navigateur.
 4. Se connecter sur \`/administration/connexion\`, puis ouvrir \`/administration\` et saisir le nom d’affichage et le code.
 5. Le code est à usage unique. Il est consommé au moment de la création du siège Super Admin 1.
 
+Si la table avait déjà été créée avant l’ajout du durcissement RLS, le propriétaire du projet peut activer cette protection depuis le SQL Editor de Supabase :
+
+```sql
+alter table private.ajecch_bootstrap_tokens enable row level security;
+```
+
+Aucune politique d’accès direct n’est nécessaire : les fonctions privées autorisées exécutent l’initialisation avec leurs privilèges contrôlés. L’accès direct à la table reste bloqué pour les clients.
+
 ## Ajouter les deux autres comptes
 
 Après la première activation, le Super Admin :
