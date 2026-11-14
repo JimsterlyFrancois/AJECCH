@@ -2012,3 +2012,57 @@ body .ajecch-home .contact-section {
     radial-gradient(ellipse at 88% 85%, rgba(212,163,89,.13), transparent 25rem),
     linear-gradient(130deg, #071a3a, #123d73) !important;
 }
+
+
+/* AJECCH sky atmosphere: a calm blue-sky transition integrated into the global canvas. */
+:root {
+  --ajecch-sky-100: #dff2ff;
+  --ajecch-sky-300: #91c9ef;
+  --ajecch-sky-500: #4c98d2;
+}
+html {
+  background: #071a3a;
+}
+body {
+  background-color: #174f86;
+  background-image:
+    radial-gradient(ellipse at 13% 2%, rgba(255,255,255,.34) 0%, rgba(255,255,255,0) 27rem),
+    radial-gradient(ellipse at 86% 12%, rgba(215,240,255,.26) 0%, rgba(215,240,255,0) 31rem),
+    radial-gradient(ellipse at 50% 38%, rgba(92,164,218,.22) 0%, rgba(92,164,218,0) 40rem),
+    linear-gradient(
+      180deg,
+      #91c9ef 0%,
+      #5aa7dc 17%,
+      #317fb9 38%,
+      #174f86 66%,
+      #0a2c59 84%,
+      #071a3a 100%
+    );
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+body main .section-pad,
+body main .page-hero,
+body main .values-section,
+body main .engagement-section,
+body main .not-found,
+body .ajecch-home .foundation-actions-section,
+body .ajecch-home .agenda-section,
+body .ajecch-home .voices-section {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(246,251,255,.90) 0%,
+      rgba(223,240,253,.84) 100%
+    ) !important;
+}
+body .ajecch-home .contact-section {
+  background:
+    radial-gradient(ellipse at 14% 10%, rgba(145,201,239,.34), transparent 28rem),
+    radial-gradient(ellipse at 88% 88%, rgba(212,163,89,.12), transparent 25rem),
+    linear-gradient(130deg, #0a2c59 0%, #174f86 58%, #317fb9 100%) !important;
+}
+@media (max-width: 700px) {
+  body { background-attachment: scroll; }
+}
