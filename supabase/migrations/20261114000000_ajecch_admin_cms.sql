@@ -130,15 +130,23 @@ create table if not exists private.ajecch_bootstrap_tokens (
 );
 revoke all on table private.ajecch_bootstrap_tokens from public, anon, authenticated;
 
-create or replace function public.ajecch_setup_available()
+create or replace function private.ajecch_setup_available()
 returns boolean language sql stable security definer set search_path = ''
 as $function$
   select not exists (select 1 from public.ajecch_admins where is_active = true);
 $function$;
+revoke all on function private.ajecch_setup_available() from public, anon;
+grant execute on function private.ajecch_setup_available() to authenticated;
+
+create or replace function public.ajecch_setup_available()
+returns boolean language sql stable security invoker set search_path = ''
+as $function$
+  select private.ajecch_setup_available();
+$function$;
 revoke all on function public.ajecch_setup_available() from public, anon;
 grant execute on function public.ajecch_setup_available() to authenticated;
 
-create or replace function public.ajecch_bootstrap_super_admin(p_token text, p_display_name text)
+create or replace function private.ajecch_bootstrap_super_admin(p_token text, p_display_name text)
 returns void language plpgsql security definer set search_path = ''
 as $function$
 declare
@@ -162,6 +170,14 @@ begin
   update private.ajecch_bootstrap_tokens set used_at = now()
     where token = supplied_token and used_at is null;
 end;
+$function$;
+revoke all on function private.ajecch_bootstrap_super_admin(text, text) from public, anon;
+grant execute on function private.ajecch_bootstrap_super_admin(text, text) to authenticated;
+
+create or replace function public.ajecch_bootstrap_super_admin(p_token text, p_display_name text)
+returns void language sql security invoker set search_path = ''
+as $function$
+  select private.ajecch_bootstrap_super_admin(p_token, p_display_name);
 $function$;
 revoke all on function public.ajecch_bootstrap_super_admin(text, text) from public, anon;
 grant execute on function public.ajecch_bootstrap_super_admin(text, text) to authenticated;
