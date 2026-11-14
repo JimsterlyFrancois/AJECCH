@@ -129,6 +129,7 @@ create table if not exists private.ajecch_bootstrap_tokens (
   created_at timestamptz not null default now()
 );
 revoke all on table private.ajecch_bootstrap_tokens from public, anon, authenticated;
+alter table private.ajecch_bootstrap_tokens enable row level security;
 
 -- Generate one private, high-entropy bootstrap code once. Retrieve it only from
 -- the Supabase SQL editor; never expose it in client code or a public environment variable.
