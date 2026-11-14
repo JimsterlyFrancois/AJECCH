@@ -81,9 +81,9 @@ export async function getPublishedPosts() {
 
   return data.map((row) => {
     const post = row as PublicPost & {
-      cover_media?: { storage_path: string | null; source_url: string | null; is_visible: boolean } | null;
+      cover_media?: { storage_path: string | null; source_url: string | null; is_visible: boolean }[];
     };
-    const cover = post.cover_media;
+    const cover = post.cover_media?.[0];
     const coverUrl = !cover || !cover.is_visible
       ? null
       : cover.storage_path
