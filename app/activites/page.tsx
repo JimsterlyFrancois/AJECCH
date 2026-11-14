@@ -1,5 +1,6 @@
 import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
+import { getSiteMedia } from "@/lib/public-content";
 
 export const metadata = {
   title: "Activités | AJECCH",
@@ -13,10 +14,14 @@ const categories = [
   { number: "04", title: "Foi & engagement", text: "Des moments et projets qui permettent de vivre les valeurs chrétiennes au quotidien." }
 ];
 
-export default function ActivitiesPage() {
+export const dynamic = "force-dynamic";
+
+export default async function ActivitiesPage() {
+  const media = await getSiteMedia();
+  const logoUrl = media["brand.logo"] ?? null;
   return (
     <>
-      <SiteHeader active="/activites" />
+      <SiteHeader active="/activites" logoUrl={logoUrl} />
       <main>
         <section className="page-hero">
           <div className="container">
@@ -37,7 +42,7 @@ export default function ActivitiesPage() {
         </section>
         <section className="join-section"><div className="container join-inner"><div className="section-kicker">PARTICIPER</div><h2>Une initiative en tête ?<br /><em>Construisons-la ensemble.</em></h2><p>Contactez l’association pour en savoir plus sur les activités et les possibilités de participation.</p><a className="button button-gold" href="/#contact">Contacter AJECCH <span>→</span></a></div></section>
       </main>
-      <SiteFooter />
+      <SiteFooter logoUrl={logoUrl} />
     </>
   );
 }
