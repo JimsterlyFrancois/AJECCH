@@ -231,3 +231,8 @@ footer { background: #08172d; color: white; }
   .empty-news { padding: 27px 22px; }
   .news-aside { padding: 24px; }
 }
+
+
+/* Official AJECCH identity image */
+.brand-mark-image { overflow: hidden; padding: 0; border: 1px solid var(--gold); background: #fff; }
+.brand-mark-image img { display: block; width: 100%; height: 100%; object-fit: contain; }
