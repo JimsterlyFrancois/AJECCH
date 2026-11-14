@@ -215,7 +215,11 @@ create policy "AJECCH editors can delete media" on public.ajecch_media for delet
 using ((select private.ajecch_has_role(array['super_admin', 'publisher'])));
 
 drop policy if exists "AJECCH public can read published posts" on public.ajecch_posts;
-create policy "AJECCH public can read published posts" on public.ajecch_posts for select to anon, authenticated
+drop policy if exists "AJECCH anonymous can read published posts" on public.ajecch_posts;
+drop policy if exists "AJECCH signed-in users can read published posts or editor drafts" on public.ajecch_posts;
+create policy "AJECCH anonymous can read published posts" on public.ajecch_posts for select to anon
+using (status = 'published');
+create policy "AJECCH signed-in users can read published posts or editor drafts" on public.ajecch_posts for select to authenticated
 using (status = 'published' or (select private.ajecch_has_role(array['super_admin', 'publisher'])));
 drop policy if exists "AJECCH editors can add posts" on public.ajecch_posts;
 create policy "AJECCH editors can add posts" on public.ajecch_posts for insert to authenticated
