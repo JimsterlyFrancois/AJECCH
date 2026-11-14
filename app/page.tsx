@@ -23,9 +23,21 @@ const pillars = [
 ];
 
 const actionAreas = [
-  ["Jeunesse & formation", "Encourager le développement des capacités, l’apprentissage et la prise de responsabilité."],
-  ["Fraternité & vie spirituelle", "Faire vivre un cadre de rencontre, de partage et de croissance dans la foi."],
-  ["Engagement communautaire", "Soutenir les initiatives utiles qui rapprochent les jeunes de leur communauté."]
+  {
+    number: "01",
+    title: "Jeunesse & formation",
+    text: "Encourager le développement des capacités, l’apprentissage et la prise de responsabilité."
+  },
+  {
+    number: "02",
+    title: "Fraternité & vie spirituelle",
+    text: "Faire vivre un cadre de rencontre, de partage et de croissance dans la foi."
+  },
+  {
+    number: "03",
+    title: "Engagement communautaire",
+    text: "Soutenir les initiatives utiles qui rapprochent les jeunes de leur communauté."
+  }
 ];
 
 export default function Home() {
@@ -40,8 +52,9 @@ export default function Home() {
         <div className="hero-orb hero-orb-two" aria-hidden="true" />
         <div className="container hero-nature-content">
           <div className="hero-glass-panel" data-reveal>
-            <span className="hero-overline"><i /> ASSOCIATION DES JEUNES CHRÉTIENS DU CAP-HAÏTIEN</span>
-            <p className="hero-kicker">FOI · FRATERNITÉ · ENGAGEMENT</p>
+            <span className="hero-overline">
+              ASSOCIATION DES JEUNES CHRÉTIENS DU CAP-HAÏTIEN · FOI · FRATERNITÉ · ENGAGEMENT
+            </span>
             <h1>Une jeunesse unie.<br /><em>Une espérance en action.</em></h1>
             <p className="hero-description">
               L’AJECCH rassemble des jeunes chrétiens qui souhaitent grandir dans la foi,
@@ -51,89 +64,106 @@ export default function Home() {
               <a className="button button-gold" href="#actions">Découvrir nos actions <span>↗</span></a>
               <a className="button button-glass" href="#mission">Notre mission</a>
             </div>
-            <div className="hero-location"><span /> CAP-HAÏTIEN, HAÏTI</div>
           </div>
           <div className="hero-bottomline">
-            <span>UNE COMMUNAUTÉ DE JEUNES EN CHEMIN</span>
-            <a href="#mission">DÉCOUVRIR <b>↓</b></a>
+            <span>CAP-HAÏTIEN, HAÏTI · UNE COMMUNAUTÉ DE JEUNES EN CHEMIN</span>
+            <a className="discover-link" href="#mission">DÉCOUVRIR <b>↓</b></a>
           </div>
         </div>
-        <div className="hero-photo-note">Paysage côtier haïtien · Photo d’ambiance</div>
+        <div className="hero-photo-note">Littoral de Labadie · Nord d’Haïti · Photo d’ambiance</div>
       </section>
 
-      <section className="section-shell mission-section" id="mission">
+      <section className="section-shell foundation-actions-section" id="mission">
         <div className="container">
-          <div className="section-intro" data-reveal>
-            <span className="section-kicker">01 / NOTRE FONDEMENT</span>
-            <h2>La foi nous rassemble.<br /><em>Le service nous met en mouvement.</em></h2>
-            <p>
-              L’AJECCH se veut un espace de rencontre et d’engagement où la jeunesse peut
-              faire grandir ses convictions, ses relations et son sens des responsabilités.
-            </p>
+          <div className="foundation-floor">
+            <div className="section-intro" data-reveal>
+              <span className="section-kicker">01 / NOTRE FONDEMENT</span>
+              <h2>La foi nous rassemble.<br /><em>Le service nous met en mouvement.</em></h2>
+              <p>
+                L’AJECCH se veut un espace de rencontre et d’engagement où la jeunesse peut
+                faire grandir ses convictions, ses relations et son sens des responsabilités.
+              </p>
+            </div>
+            <div className="pillar-grid">
+              {pillars.map((pillar) => (
+                <article className="glass-card pillar-card" key={pillar.number} data-reveal>
+                  <div className="card-topline">
+                    <span>{pillar.number}</span>
+                    <span className="pillar-icon">{pillar.icon}</span>
+                  </div>
+                  <h3>{pillar.title}</h3>
+                  <p>{pillar.text}</p>
+                  <span className="card-bottom-mark" />
+                </article>
+              ))}
+            </div>
           </div>
-          <div className="pillar-grid">
-            {pillars.map((pillar) => (
-              <article className="glass-card pillar-card" key={pillar.number} data-reveal>
-                <div className="card-topline"><span>{pillar.number}</span><span className="pillar-icon">{pillar.icon}</span></div>
-                <h3>{pillar.title}</h3>
-                <p>{pillar.text}</p>
-                <span className="card-bottom-mark" />
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      <section className="section-shell actions-section" id="actions">
-        <div className="container">
-          <div className="section-heading-wide" data-reveal>
-            <div>
-              <span className="section-kicker">02 / ENGAGEMENT SUR LE TERRAIN</span>
-              <h2>Des convictions qui prennent<br /><em>racine dans la vie réelle.</em></h2>
-            </div>
-            <p>
-              L’engagement se construit dans la durée : par la rencontre, l’apprentissage,
-              l’entraide et des initiatives pensées avec la communauté.
-            </p>
-          </div>
-          <div className="action-feature-grid">
-            <figure className="nature-feature" data-reveal>
-              <img
-                src="https://images.unsplash.com/photo-1743776469194-464913c8d604?auto=format&fit=crop&fm=jpg&ixid=NHwxMjA3fDA%3D&ixlib=rb-4.1.0&q=60&w=3000"
-                alt="Lumière naturelle traversant une végétation tropicale"
-                loading="lazy"
-                decoding="async"
-              />
-              <div className="nature-feature-overlay">
-                <span>UNE DYNAMIQUE COLLECTIVE</span>
-                <strong>Grandir, transmettre<br />et agir ensemble.</strong>
+          <div className="foundation-connector" aria-hidden="true"><span /></div>
+
+          <div className="actions-floor" id="actions">
+            <div className="section-heading-wide" data-reveal>
+              <div>
+                <span className="section-kicker">02 / ENGAGEMENT SUR LE TERRAIN</span>
+                <h2>Des convictions qui prennent<br /><em>racine dans la vie réelle.</em></h2>
               </div>
-              <figcaption>Visuel naturel d’ambiance · Les photographies des activités AJECCH seront ajoutées après validation.</figcaption>
-            </figure>
-            <div className="action-side">
-              <div className="glass-card action-intro-card" data-reveal>
-                <span className="section-kicker">NOS DOMAINES D’ACTION</span>
-                <h3>Une jeunesse qui choisit de contribuer.</h3>
-                <p>Ces axes présentent les orientations éditoriales du site. Les programmes et résultats seront détaillés à partir des informations confirmées par l’association.</p>
+              <p>
+                L’engagement se construit dans la durée : par la rencontre, l’apprentissage,
+                l’entraide et des initiatives pensées avec la communauté.
+              </p>
+            </div>
+
+            <div className="action-feature-grid">
+              <div className="action-visual-column">
+                <figure className="nature-feature" data-reveal>
+                  <img
+                    src="https://images.pexels.com/photos/17772875/pexels-photo-17772875.jpeg?auto=compress&cs=tinysrgb&w=1800"
+                    alt="Lumière naturelle traversant une végétation tropicale dense"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div className="nature-feature-overlay">
+                    <span>UNE DYNAMIQUE COLLECTIVE</span>
+                    <strong>Grandir, transmettre<br />et agir ensemble.</strong>
+                  </div>
+                  <figcaption>Visuel d’ambiance · Photographies officielles AJECCH à venir</figcaption>
+                </figure>
+
+                <aside className="impact-strip glass-card" data-reveal>
+                  <span className="section-kicker">NOTRE ENGAGEMENT DE TRANSPARENCE</span>
+                  <h3>Un impact qui se raconte avec des faits.</h3>
+                  <p>Les chiffres et résultats seront publiés une fois documentés et validés.</p>
+                  <a className="text-link" href="https://www.facebook.com/AJECCH" target="_blank" rel="noreferrer">
+                    Suivre les publications officielles <span>↗</span>
+                  </a>
+                </aside>
               </div>
-              <div className="action-list">
-                {actionAreas.map(([title, description], index) => (
-                  <article className="action-list-item" key={title} data-reveal>
-                    <span>0{index + 1}</span>
-                    <div><h3>{title}</h3><p>{description}</p></div>
-                    <b>↗</b>
-                  </article>
-                ))}
+
+              <div className="action-side">
+                <div className="action-side-heading" data-reveal>
+                  <span className="section-kicker">NOS DOMAINES D’ACTION</span>
+                  <h3>Trois chemins pour servir la communauté.</h3>
+                </div>
+                <div className="action-list">
+                  {actionAreas.map((area) => (
+                    <article className="glass-card action-domain-card" key={area.number} data-reveal>
+                      <span className="domain-number">{area.number}</span>
+                      <div className="domain-copy">
+                        <h3>{area.title}</h3>
+                        <p>{area.text}</p>
+                      </div>
+                      <a
+                        className="domain-arrow"
+                        href="https://www.facebook.com/AJECCH"
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={`Suivre les actualités AJECCH : ${area.title}`}
+                      >↗</a>
+                    </article>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-          <div className="impact-strip glass-card" data-reveal>
-            <div>
-              <span className="section-kicker">NOTRE ENGAGEMENT DE TRANSPARENCE</span>
-              <h3>Un impact qui se raconte avec des faits.</h3>
-              <p>Les chiffres de participation, les bénéficiaires et les résultats seront publiés lorsqu’ils auront été documentés et validés.</p>
-            </div>
-            <a className="text-link" href="https://www.facebook.com/AJECCH" target="_blank" rel="noreferrer">Suivre les publications officielles <span>↗</span></a>
           </div>
         </div>
       </section>
@@ -159,22 +189,28 @@ export default function Home() {
               <p>1ère édition · Cap-Haïtien</p>
               <small>Les horaires, le lieu précis et les modalités de participation seront communiqués par l’association.</small>
             </div>
-            <a className="event-link" href="https://www.facebook.com/AJECCH" target="_blank" rel="noreferrer" aria-label="Consulter les informations officielles de l'événement">↗</a>
+            <a
+              className="event-link"
+              href="https://www.facebook.com/AJECCH"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Consulter les informations officielles de l'événement"
+            >↗</a>
           </article>
-          <p className="agenda-footnote">Les informations de cet agenda sont susceptibles d’être complétées par les communications officielles de l’AJECCH.</p>
+          <p className="agenda-footnote">Les informations de cet agenda seront complétées selon les communications officielles de l’AJECCH.</p>
         </div>
       </section>
 
       <section className="section-shell voices-section" id="vie-associative">
-        <div className="container voices-grid">
-          <div className="voices-copy" data-reveal>
-            <span className="section-kicker">04 / PAROLES & VIE ASSOCIATIVE</span>
-            <h2>Une association se construit<br /><em>avec celles et ceux qui la vivent.</em></h2>
-            <p>
-              Les témoignages des membres et bénévoles ont leur place ici. Ils seront publiés
-              avec l’accord des personnes concernées, sans citations inventées ni paroles attribuées.
-            </p>
-            <a className="text-link" href="https://www.facebook.com/AJECCH" target="_blank" rel="noreferrer">Découvrir la communauté sur Facebook <span>↗</span></a>
+        <div className="container">
+          <div className="voices-heading" data-reveal>
+            <div>
+              <span className="section-kicker">04 / PAROLES & VIE ASSOCIATIVE</span>
+              <h2>Une association se construit<br /><em>avec celles et ceux qui la vivent.</em></h2>
+            </div>
+            <a className="text-link" href="https://www.facebook.com/AJECCH" target="_blank" rel="noreferrer">
+              Découvrir la communauté sur Facebook <span>↗</span>
+            </a>
           </div>
           <div className="voice-cards">
             <article className="glass-card voice-card voice-card-main" data-reveal>
@@ -185,10 +221,12 @@ export default function Home() {
               <span className="voice-card-foot">TÉMOIGNAGES À VENIR</span>
             </article>
             <article className="glass-card voice-card voice-card-secondary" data-reveal>
-              <span className="voice-card-foot">LES MOMENTS QUI NOUS RASSEMBLENT</span>
-              <h3>La vie de l’association en images.</h3>
-              <p>Une galerie de photographies authentiques sera intégrée dès réception des visuels officiels.</p>
-              <a href="https://www.facebook.com/AJECCH" target="_blank" rel="noreferrer">Voir la page AJECCH ↗</a>
+              <div className="gallery-preview" role="img" aria-label="Visuel naturel d’ambiance en attendant les photographies officielles de l’association" />
+              <div className="gallery-copy">
+                <span className="voice-card-foot">VISUELS OFFICIELS EN COURS D’INTÉGRATION</span>
+                <h3>Les moments qui nous rassemblent.</h3>
+                <a href="https://www.facebook.com/AJECCH" target="_blank" rel="noreferrer">Voir la page AJECCH ↗</a>
+              </div>
             </article>
           </div>
         </div>
@@ -196,16 +234,20 @@ export default function Home() {
 
       <section className="contact-section" id="contact">
         <div className="contact-backdrop" aria-hidden="true" />
-        <div className="container contact-container">
+        <div className="contact-container container">
           <div className="contact-glass-panel" data-reveal>
             <span className="section-kicker">05 / PRENONS CONTACT</span>
             <h2>Une idée, une envie de servir,<br /><em>un pas à faire ensemble.</em></h2>
-            <p>Vous souhaitez rejoindre l’AJECCH, en savoir plus sur ses initiatives ou proposer un appui ? Écrivez à l’association par sa page officielle.</p>
+            <p>
+              Vous souhaitez rejoindre l’AJECCH, en savoir plus sur ses initiatives ou proposer un appui ?
+              Écrivez à l’association par sa page officielle.
+            </p>
             <div className="hero-buttons">
-              <a className="button button-gold" href="https://www.facebook.com/AJECCH" target="_blank" rel="noreferrer">Contacter AJECCH <span>↗</span></a>
+              <a className="button button-gold" href="https://www.facebook.com/AJECCH" target="_blank" rel="noreferrer">
+                Contacter AJECCH <span>↗</span>
+              </a>
               <a className="button button-glass" href="/a-propos">Mieux nous connaître</a>
             </div>
-            <span className="contact-life-indicator"><i /> PAGE OFFICIELLE DE L’ASSOCIATION</span>
           </div>
         </div>
       </section>
