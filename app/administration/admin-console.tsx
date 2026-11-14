@@ -378,7 +378,7 @@ export default function AdminConsole({ admin }: { admin: AjecchAdmin }) {
   );
 }
 
-function PostEditor({ post, onSave, onDelete, busy }: {
+function PostEditor({ post, media, onSave, onDelete, busy }: {
   post?: PostItem;
   media: MediaItem[];
   onSave: (event: FormEvent<HTMLFormElement>) => void;
