@@ -89,7 +89,7 @@ h2 { margin: 0; color: var(--navy); font: 600 clamp(32px, 4vw, 47px)/1.18 'Playf
 .mission-seal { justify-self: end; width: 72px; height: 72px; border: 1px solid #b58a5577; display: grid; place-items: center; color: white; font: 600 28px 'Playfair Display', serif; }
 .mission-seal span { color: var(--gold-light); }
 .values-section { background: #fff; }
-.section-heading { display: flex; justify-content: space-between; align-items: end; gap: 35px; margin-bottom: 45px; }
+.section-heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 35px; margin-bottom: 45px; }
 .section-heading > p { max-width: 330px; margin: 0 0 5px; color: var(--muted); font-size: 12px; line-height: 1.8; }
 .value-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .value-card { position: relative; min-height: 260px; padding: 27px 30px 30px 0; }
