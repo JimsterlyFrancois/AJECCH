@@ -852,7 +852,7 @@ h1, h2, h3, .footer-message, .footer-verse-column blockquote {
 .section-heading-wide {
   display: grid;
   grid-template-columns: 1.1fr .7fr;
-  align-items: end;
+  align-items: flex-end;
   gap: 48px;
   margin-bottom: 52px;
 }
@@ -2007,7 +2007,7 @@ h1, h2, h3 { color: #1B3B2B; }
 .admin-topbar h1 { margin: 6px 0 0; color: #1B3B2B; font: 600 clamp(26px, 3vw, 36px)/1.15 'Playfair Display', Georgia, serif; }
 .admin-role-chip { padding: 9px 13px; border: 1px solid #D7E2D7; border-radius: 999px; color: #315943; background: #EAF0E8; font-size: 9px; font-weight: 800; }
 .admin-content { display: grid; gap: 22px; }
-.admin-welcome-panel { display: flex; justify-content: space-between; align-items: end; gap: 20px; padding: clamp(24px, 4vw, 38px); border: 1px solid rgba(255,255,255,.8); border-radius: 22px; background: linear-gradient(130deg, rgba(255,255,255,.93), rgba(236,241,232,.85)); box-shadow: 0 16px 40px rgba(27,59,43,.05); }
+.admin-welcome-panel { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; padding: clamp(24px, 4vw, 38px); border: 1px solid rgba(255,255,255,.8); border-radius: 22px; background: linear-gradient(130deg, rgba(255,255,255,.93), rgba(236,241,232,.85)); box-shadow: 0 16px 40px rgba(27,59,43,.05); }
 .admin-welcome-panel h2 { margin: 8px 0; color: #1B3B2B; font: 600 29px 'Playfair Display', Georgia, serif; }
 .admin-welcome-panel p, .admin-section-intro p { max-width: 680px; color: #68736B; font-size: 12px; line-height: 1.8; }
 .admin-welcome-panel > a { flex-shrink: 0; padding: 11px 14px; border-radius: 10px; color: white; background: #1B3B2B; font-size: 10px; font-weight: 800; }
