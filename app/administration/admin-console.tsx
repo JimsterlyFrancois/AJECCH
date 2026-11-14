@@ -227,7 +227,7 @@ export default function AdminConsole({ admin }: { admin: AjecchAdmin }) {
       created_by: admin.user_id
     });
     if (insertError) setError(insertError.message);
-    else { setNotice("Accès attribué."); event.currentTarget.reset(); await loadData(); }
+    else { setNotice("Accès attribué."); formElement.reset(); await loadData(); }
     setBusy(false);
   }
 
@@ -315,10 +315,10 @@ export default function AdminConsole({ admin }: { admin: AjecchAdmin }) {
                   ? supabase.storage.from("ajecch-public-media").getPublicUrl(item.storage_path).data.publicUrl
                   : item.source_url;
                 return (
-                  <form className="admin-media-card" key={slot} onSubmit={(event) => saveMedia(item, event)}>
+                  <form className="admin-media-card" key={item.slot} onSubmit={(event) => saveMedia(item, event)}>
                     <div className="admin-media-preview">{preview && item.is_visible ? <img src={preview} alt={item.alt_text || item.label} /> : <span>Visuel masqué ou absent</span>}</div>
                     <div className="admin-media-fields">
-                      <span className="admin-slot">{slot}</span>
+                      <span className="admin-slot">{item.slot}</span>
                       <label>Nom de l’image<input name="label" defaultValue={item.label} required /></label>
                       <label>Texte alternatif<input name="alt_text" defaultValue={item.alt_text} placeholder="Description accessible de l’image" /></label>
                       <label>Légende<input name="caption" defaultValue={item.caption ?? ""} placeholder="Légende facultative" /></label>
@@ -369,7 +369,7 @@ export default function AdminConsole({ admin }: { admin: AjecchAdmin }) {
             </form>
             <div className="admin-team-list">
               <h3>Accès enregistrés</h3>
-              {team.map((person) => <div className="admin-team-row" key={person.id}><div><strong>{person.display_name}</strong><small>{person.email} · {person.role === "super_admin" ? `Super Admin · siège ${person.seat}` : "Publication & Médias"}</small></div><div className="admin-team-actions"><span className={person.is_active ? "admin-status-on" : "admin-status-off"}>{person.is_active ? "Actif" : "Désactivé"}</span>{person.user_id !== admin.user_id && <><select aria-label={`Rôle de ${person.display_name}`} value={person.role} onChange={(event) => void updateAdmin(person, { role: event.target.value as "super_admin" | "publisher", seat: event.target.value === "publisher" ? 1 : person.role === "super_admin" ? person.seat : 1 })}><option value="super_admin">Super Admin</option><option value="publisher">Publication & Médias</option></select>{person.role === "super_admin" && <select aria-label={`Siège de ${person.display_name}`} value={person.seat} onChange={(event) => void updateAdmin(person, { seat: Number(event.target.value) })}><option value={1}>Siège 1</option><option value={2}>Siège 2</option></select>}<button type="button" onClick={() => void updateAdmin(person, { is_active: !person.is_active })}>{person.is_active ? "Désactiver" : "Réactiver"}</button><button className="admin-danger-text" type="button" onClick={() => void revokeAdmin(person)}>Révoquer</button></>}</div></div>)}
+              {team.map((person) => <div className="admin-team-row" key={person.id}><div><strong>{person.display_name}</strong><small>{person.email} · {person.role === "super_admin" ? `Super Admin · siège ${person.seat}` : "Publication & Médias"}</small></div><div className="admin-team-actions"><span className={person.is_active ? "admin-status-on" : "admin-status-off"}>{person.is_active ? "Actif" : "Désactivé"}</span>{person.user_id !== admin.user_id && <><select aria-label={`Rôle de ${person.display_name}`} value={person.role} onChange={(event) => void updateAdmin(person, { role: event.target.value as "super_admin" | "publisher", seat: event.target.value === "publisher" ? 1 : person.role === "super_admin" ? person.seat : 2 })}><option value="super_admin">Super Admin</option><option value="publisher">Publication & Médias</option></select>{person.role === "super_admin" && <select aria-label={`Siège de ${person.display_name}`} value={person.seat} onChange={(event) => void updateAdmin(person, { seat: Number(event.target.value) })}><option value={1}>Siège 1</option><option value={2}>Siège 2</option></select>}<button type="button" onClick={() => void updateAdmin(person, { is_active: !person.is_active })}>{person.is_active ? "Désactiver" : "Réactiver"}</button><button className="admin-danger-text" type="button" onClick={() => void revokeAdmin(person)}>Révoquer</button></>}</div></div>)}
             </div>
           </div>
         )}
