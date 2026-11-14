@@ -1,12 +1,45 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+
 const links = [
-  { href: "/", label: "Accueil" },
-  { href: "/#mission", label: "Mission" },
-  { href: "/#actions", label: "Actions" },
-  { href: "/#evenements", label: "Événements" },
-  { href: "/#contact", label: "Contact" }
+  { id: "accueil", hash: "#accueil", label: "Accueil" },
+  { id: "mission", hash: "#mission", label: "Mission" },
+  { id: "actions", hash: "#actions", label: "Actions" },
+  { id: "evenements", hash: "#evenements", label: "Événements" },
+  { id: "contact", hash: "#contact", label: "Contact" }
 ];
 
 export default function SiteHeader({ active = "" }: { active?: string }) {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+  const [activeSection, setActiveSection] = useState("accueil");
+
+  useEffect(() => {
+    if (!isHome || !("IntersectionObserver" in window)) return;
+
+    const sections = links
+      .map((link) => document.getElementById(link.id))
+      .filter((section): section is HTMLElement => Boolean(section));
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+
+        if (visible[0]?.target instanceof HTMLElement) {
+          setActiveSection(visible[0].target.id);
+        }
+      },
+      { rootMargin: "-28% 0px -62% 0px", threshold: 0 }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, [isHome]);
+
   return (
     <>
       <div className="topline">
@@ -30,13 +63,22 @@ export default function SiteHeader({ active = "" }: { active?: string }) {
             </span>
           </a>
           <nav className="main-nav" aria-label="Navigation principale">
-            {links.map((link) => (
-              <a key={link.href} className={active === link.href ? "active" : ""} href={link.href}>
-                {link.label}
-              </a>
-            ))}
+            {links.map((link) => {
+              const href = isHome ? link.hash : `/${link.hash}`;
+              const isActive = isHome && activeSection === link.id;
+              return (
+                <a
+                  key={link.id}
+                  className={isActive ? "active" : ""}
+                  href={href}
+                  aria-current={isActive ? "location" : undefined}
+                >
+                  {link.label}
+                </a>
+              );
+            })}
           </nav>
-          <a className="nav-cta" href="/#contact">Rejoindre <span>↗</span></a>
+          <a className="nav-cta" href={isHome ? "#contact" : "/#contact"}>Rejoindre <span>↗</span></a>
         </div>
       </header>
     </>
