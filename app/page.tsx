@@ -1,5 +1,6 @@
 import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
+import { getPublishedPosts, getSiteMedia } from "@/lib/public-content";
 
 const pillars = [
   {
@@ -40,13 +41,19 @@ const actionAreas = [
   }
 ];
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const [media, posts] = await Promise.all([getSiteMedia(), getPublishedPosts()]);
+  const events = posts.filter((post) => post.category === "event");
+  const logoUrl = media["brand.logo"] ?? null;
+
   return (
     <main className="ajecch-home">
-      <SiteHeader active="/" />
+      <SiteHeader active="/" logoUrl={logoUrl} />
 
       <section className="hero-nature" id="accueil">
-        <div className="hero-nature-image" aria-hidden="true" />
+        <div className="hero-nature-image" aria-hidden="true" style={{ backgroundImage: media["home.hero"] ? `url("${media["home.hero"]}")` : "none" }} />
         <div className="hero-nature-shade" aria-hidden="true" />
         <div className="hero-orb hero-orb-one" aria-hidden="true" />
         <div className="hero-orb hero-orb-two" aria-hidden="true" />
@@ -116,12 +123,11 @@ export default function Home() {
             <div className="action-feature-grid">
               <div className="action-visual-column">
                 <figure className="nature-feature" data-reveal>
-                  <img
-                    src="https://images.pexels.com/photos/17772875/pexels-photo-17772875.jpeg?auto=compress&cs=tinysrgb&w=1800"
-                    alt="Lumière naturelle traversant une végétation tropicale dense"
-                    loading="lazy"
-                    decoding="async"
-                  />
+                  {media["home.actions"] ? (
+                    <img src={media["home.actions"]} alt="Visuel des actions AJECCH" loading="lazy" decoding="async" />
+                  ) : (
+                    <div className="public-image-empty">Aucune image publiée pour cet emplacement</div>
+                  )}
                   <div className="nature-feature-overlay">
                     <span>UNE DYNAMIQUE COLLECTIVE</span>
                     <strong>Grandir, transmettre<br />et agir ensemble.</strong>
@@ -221,7 +227,7 @@ export default function Home() {
               <span className="voice-card-foot">TÉMOIGNAGES À VENIR</span>
             </article>
             <article className="glass-card voice-card voice-card-secondary" data-reveal>
-              <div className="gallery-preview" role="img" aria-label="Visuel naturel d’ambiance en attendant les photographies officielles de l’association" />
+              <div className="gallery-preview" role="img" aria-label="Photographie de la vie associative AJECCH" style={{ backgroundImage: media["home.gallery"] ? `url("${media["home.gallery"]}")` : "none" }} />
               <div className="gallery-copy">
                 <span className="voice-card-foot">VISUELS OFFICIELS EN COURS D’INTÉGRATION</span>
                 <h3>Les moments qui nous rassemblent.</h3>
@@ -233,7 +239,7 @@ export default function Home() {
       </section>
 
       <section className="contact-section" id="contact">
-        <div className="contact-backdrop" aria-hidden="true" />
+        <div className="contact-backdrop" aria-hidden="true" style={{ backgroundImage: media["home.contact"] ? `url("${media["home.contact"]}")` : "none" }} />
         <div className="contact-container container">
           <div className="contact-glass-panel" data-reveal>
             <span className="section-kicker">05 / PRENONS CONTACT</span>
@@ -252,7 +258,7 @@ export default function Home() {
         </div>
       </section>
 
-      <SiteFooter />
+      <SiteFooter logoUrl={logoUrl} />
     </main>
   );
 }
