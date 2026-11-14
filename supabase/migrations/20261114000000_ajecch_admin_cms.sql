@@ -82,8 +82,8 @@ returns trigger language plpgsql security definer set search_path = ''
 as $function$
 declare remaining_super_admins integer;
 begin
-  if old.role = 'super_admin' and old.is_active = true then
-    if tg_op = 'DELETE' or new.role <> 'super_admin' or new.is_active = false then
+  if tg_op = 'DELETE' then
+    if old.role = 'super_admin' and old.is_active = true then
       select count(*) into remaining_super_admins
       from public.ajecch_admins as admin
       where admin.role = 'super_admin' and admin.is_active = true
@@ -92,14 +92,21 @@ begin
         raise exception 'Au moins un compte Super Admin actif doit être conservé.';
       end if;
     end if;
+    return old;
   end if;
-  if tg_op = 'DELETE' then return old; end if;
+  if old.role = 'super_admin' and old.is_active = true
+    and (new.role <> 'super_admin' or new.is_active = false) then
+    select count(*) into remaining_super_admins
+    from public.ajecch_admins as admin
+    where admin.role = 'super_admin' and admin.is_active = true
+      and admin.user_id <> old.user_id;
+    if remaining_super_admins < 1 then
+      raise exception 'Au moins un compte Super Admin actif doit être conservé.';
+    end if;
+  end if;
   return new;
 end;
 $function$;
-drop trigger if exists ajecch_guard_active_super_admin on public.ajecch_admins;
-create trigger ajecch_guard_active_super_admin before update or delete on public.ajecch_admins
-for each row execute function private.ajecch_guard_active_super_admin();
 
 create or replace function private.ajecch_set_updated_at()
 returns trigger language plpgsql set search_path = ''
