@@ -34,7 +34,7 @@ export default function SiteFooter() {
           <span className="footer-label">EXPLORER</span>
           {footerLinks.map((link) => <a href={link.href} key={link.href}>{link.label}</a>)}
         </div>
-        <div className="footer-verse-column">
+        <div className="footer-verse-column glass-card">
           <span className="footer-label">UN REPÈRE</span>
           <blockquote>« Que tout se fasse avec amour. »</blockquote>
           <span className="verse-reference">1 Corinthiens 16:14</span>
@@ -42,10 +42,12 @@ export default function SiteFooter() {
         </div>
       </div>
       <div className="container footer-bottom">
-        <span>© {new Date().getFullYear()} AJECCH. Tous droits réservés.</span>
+        <span>© 2026 AJECCH. Tous droits réservés.</span>
         <span className="photo-credit">
           Visuels d’ambiance :
-          <a href="https://unsplash.com/pt-br/fotografias/uma-estrada-ao-lado-de-um-corpo-de-agua-c4fynAqSQic" target="_blank" rel="noreferrer"> Unsplash</a>
+          <a href="https://www.pexels.com/photo/drone-shot-of-coastal-area-8868160/" target="_blank" rel="noreferrer"> Kenrick Baksh / Pexels</a>
+          <span> · </span>
+          <a href="https://www.pexels.com/photo/sunlight-in-tropical-forest-17772875/" target="_blank" rel="noreferrer">Pexels</a>
         </span>
         <a href="#accueil">RETOUR EN HAUT ↑</a>
       </div>
