@@ -392,6 +392,7 @@ function PostEditor({ post, onSave, onDelete, busy }: {
         <span><strong>{post?.title ?? "Nouvelle publication"}</strong><small>{post ? `${CATEGORY_LABELS[post.category]} · ${post.status === "published" ? "En ligne" : "Brouillon"}` : "Créer une actualité, une annonce ou un événement"}</small></span><b>{expanded ? "−" : "+"}</b>
       </button>
       {expanded && <div className="admin-post-fields">
+        <label>Image de couverture<select name="cover_media_id" defaultValue={post?.cover_media_id ?? ""}><option value="">Aucune image</option>{media.filter((item) => item.id && item.is_visible).map((item) => <option value={item.id} key={item.id}>{item.label}</option>)}</select></label>
         <div className="admin-form-two">
           <label>Titre<input name="title" required defaultValue={post?.title ?? ""} /></label>
           <label>Identifiant URL (slug)<input name="slug" required pattern="[a-z0-9-]+" defaultValue={post?.slug ?? ""} placeholder="exemple-annonce-ajecch" /></label>
