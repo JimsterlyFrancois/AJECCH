@@ -133,6 +133,10 @@ export default function AdminConsole({ admin }: { admin: AjecchAdmin }) {
   }
 
   async function deleteMedia(item: MediaItem) {
+    if (!item.id) {
+      setMedia((current) => current.filter((entry) => entry.slot !== item.slot));
+      return;
+    }
     if (!window.confirm(`Supprimer définitivement le visuel « ${item.label} » ? Il disparaîtra aussi de la page publique.`)) return;
     setBusy(true);
     setError("");
@@ -206,7 +210,8 @@ export default function AdminConsole({ admin }: { admin: AjecchAdmin }) {
 
   async function assignAdmin(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const form = new FormData(event.currentTarget);
+    const formElement = event.currentTarget;
+    const form = new FormData(formElement);
     const role = String(form.get("role")) as "super_admin" | "publisher";
     const seat = role === "super_admin" ? Number(form.get("seat")) : 1;
     setBusy(true);
@@ -303,11 +308,9 @@ export default function AdminConsole({ admin }: { admin: AjecchAdmin }) {
         {tab === "media" && (
           <div className="admin-content">
             <div className="admin-section-intro"><h2>Tous les visuels de la page publique</h2><p>Chaque emplacement peut recevoir une nouvelle image, être masqué ou être supprimé. Formats : JPG, PNG, WebP et AVIF · 8 Mo maximum.</p></div>
+            <button className="admin-secondary-button admin-add-media" type="button" onClick={() => setMedia((current) => [...current, { id: "", slot: `custom.${crypto.randomUUID()}`, label: "Nouvelle image", alt_text: "", caption: null, source_url: null, storage_path: null, is_visible: false }])}>+ Ajouter un emplacement image</button>
             <div className="admin-media-grid">
-              {SLOT_ORDER.map((slot) => {
-                const item = media.find((entry) => entry.slot === slot) ?? {
-                  id: "", slot, label: slot, alt_text: "", caption: "", source_url: null, storage_path: null, is_visible: false
-                };
+              {[...SLOT_ORDER.map((slot) => media.find((entry) => entry.slot === slot) ?? ({ id: "", slot, label: slot, alt_text: "", caption: "", source_url: null, storage_path: null, is_visible: false } as MediaItem)), ...media.filter((entry) => !SLOT_ORDER.includes(entry.slot))].map((item) => {
                 const preview = item.storage_path
                   ? supabase.storage.from("ajecch-public-media").getPublicUrl(item.storage_path).data.publicUrl
                   : item.source_url;
@@ -366,7 +369,7 @@ export default function AdminConsole({ admin }: { admin: AjecchAdmin }) {
             </form>
             <div className="admin-team-list">
               <h3>Accès enregistrés</h3>
-              {team.map((person) => <div className="admin-team-row" key={person.id}><div><strong>{person.display_name}</strong><small>{person.email} · {person.role === "super_admin" ? `Super Admin · siège ${person.seat}` : "Publication & Médias"}</small></div><div className="admin-team-actions"><span className={person.is_active ? "admin-status-on" : "admin-status-off"}>{person.is_active ? "Actif" : "Désactivé"}</span>{person.user_id !== admin.user_id && <><button type="button" onClick={() => void updateAdmin(person, { is_active: !person.is_active })}>{person.is_active ? "Désactiver" : "Réactiver"}</button><button className="admin-danger-text" type="button" onClick={() => void revokeAdmin(person)}>Révoquer</button></>}</div></div>)}
+              {team.map((person) => <div className="admin-team-row" key={person.id}><div><strong>{person.display_name}</strong><small>{person.email} · {person.role === "super_admin" ? `Super Admin · siège ${person.seat}` : "Publication & Médias"}</small></div><div className="admin-team-actions"><span className={person.is_active ? "admin-status-on" : "admin-status-off"}>{person.is_active ? "Actif" : "Désactivé"}</span>{person.user_id !== admin.user_id && <><select aria-label={`Rôle de ${person.display_name}`} value={person.role} onChange={(event) => void updateAdmin(person, { role: event.target.value as "super_admin" | "publisher", seat: event.target.value === "publisher" ? 1 : person.role === "super_admin" ? person.seat : 1 })}><option value="super_admin">Super Admin</option><option value="publisher">Publication & Médias</option></select>{person.role === "super_admin" && <select aria-label={`Siège de ${person.display_name}`} value={person.seat} onChange={(event) => void updateAdmin(person, { seat: Number(event.target.value) })}><option value={1}>Siège 1</option><option value={2}>Siège 2</option></select>}<button type="button" onClick={() => void updateAdmin(person, { is_active: !person.is_active })}>{person.is_active ? "Désactiver" : "Réactiver"}</button><button className="admin-danger-text" type="button" onClick={() => void revokeAdmin(person)}>Révoquer</button></>}</div></div>)}
             </div>
           </div>
         )}
