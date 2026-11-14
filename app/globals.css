@@ -1991,3 +1991,24 @@ body {
   .brand-copy { max-width: 150px; }
   .brand-copy small { font-size: 6.5px; }
 }
+
+
+/* Explicitly apply the blue-gradient canvas beneath every public page section. */
+body main .section-pad,
+body main .page-hero,
+body main .values-section,
+body main .engagement-section,
+body main .not-found {
+  background: linear-gradient(135deg, rgba(248,251,255,.91) 0%, rgba(224,236,252,.84) 100%) !important;
+}
+body .ajecch-home .foundation-actions-section,
+body .ajecch-home .agenda-section,
+body .ajecch-home .voices-section {
+  background: linear-gradient(135deg, rgba(248,251,255,.91) 0%, rgba(224,236,252,.84) 100%) !important;
+}
+body .ajecch-home .contact-section {
+  background:
+    radial-gradient(ellipse at 15% 20%, rgba(93,151,220,.24), transparent 27rem),
+    radial-gradient(ellipse at 88% 85%, rgba(212,163,89,.13), transparent 25rem),
+    linear-gradient(130deg, #071a3a, #123d73) !important;
+}
