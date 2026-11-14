@@ -2105,3 +2105,53 @@ h1, h2, h3 { color: #1B3B2B; }
 @media (prefers-reduced-motion: reduce) {
   .admin-primary-button, .admin-secondary-button, .admin-danger-button { transition: none; }
 }
+
+
+/* Parallax sky: two lightweight cloud layers drift at different speeds while scrolling. */
+body { isolation: isolate; }
+.scroll-sky {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  contain: strict;
+}
+.scroll-sky-clouds {
+  position: absolute;
+  left: -12%;
+  width: 124%;
+  height: 58vh;
+  min-height: 360px;
+  background-repeat: no-repeat;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+.scroll-sky-clouds-distant {
+  top: -9vh;
+  opacity: .36;
+  filter: blur(13px);
+  background-image:
+    radial-gradient(ellipse 19% 17% at 13% 32%, rgba(255,255,255,.78) 0 45%, transparent 78%),
+    radial-gradient(ellipse 16% 14% at 23% 29%, rgba(255,255,255,.68) 0 45%, transparent 78%),
+    radial-gradient(ellipse 22% 18% at 72% 23%, rgba(255,255,255,.76) 0 44%, transparent 78%),
+    radial-gradient(ellipse 17% 15% at 84% 27%, rgba(255,255,255,.68) 0 45%, transparent 78%);
+}
+.scroll-sky-clouds-near {
+  top: 20vh;
+  opacity: .25;
+  filter: blur(19px);
+  background-image:
+    radial-gradient(ellipse 20% 18% at 5% 46%, rgba(255,255,255,.8) 0 42%, transparent 78%),
+    radial-gradient(ellipse 15% 14% at 17% 42%, rgba(255,255,255,.72) 0 45%, transparent 78%),
+    radial-gradient(ellipse 23% 19% at 91% 50%, rgba(255,255,255,.78) 0 43%, transparent 78%),
+    radial-gradient(ellipse 16% 14% at 78% 46%, rgba(255,255,255,.7) 0 44%, transparent 78%);
+}
+@media (max-width: 700px) {
+  .scroll-sky-clouds { height: 46vh; min-height: 280px; }
+  .scroll-sky-clouds-distant { opacity: .29; }
+  .scroll-sky-clouds-near { opacity: .19; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-sky-clouds { will-change: auto; }
+}
