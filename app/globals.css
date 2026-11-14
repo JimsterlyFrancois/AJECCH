@@ -1841,3 +1841,9 @@ h1, h2, h3 { color: #1B3B2B; }
   .hero-orb, .discover-link b, .event-status, .event-status i { animation: none !important; }
   .action-domain-card, .domain-arrow, .event-link { transition: none !important; }
 }
+
+
+/* Ensure the hero's translucent highlight stays inside its glass surface */
+.hero-glass-panel { position: relative; isolation: isolate; }
+.hero-glass-panel:before { z-index: 0; }
+.hero-glass-panel > * { position: relative; z-index: 1; }
