@@ -130,6 +130,12 @@ create table if not exists private.ajecch_bootstrap_tokens (
 );
 revoke all on table private.ajecch_bootstrap_tokens from public, anon, authenticated;
 
+-- Generate one private, high-entropy bootstrap code once. Retrieve it only from
+-- the Supabase SQL editor; never expose it in client code or a public environment variable.
+insert into private.ajecch_bootstrap_tokens(token)
+select replace(gen_random_uuid()::text, '-', '')
+where not exists (select 1 from private.ajecch_bootstrap_tokens);
+
 create or replace function private.ajecch_setup_available()
 returns boolean language sql stable security definer set search_path = ''
 as $function$
