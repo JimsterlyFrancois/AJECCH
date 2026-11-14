@@ -1106,9 +1106,6 @@ h1, h2, h3, .footer-message, .footer-verse-column blockquote {
   transition: opacity .7s ease, transform .7s cubic-bezier(.2,.65,.25,1);
 }
 .has-scroll-reveal [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
-.has-scroll-reveal main > section:not(.hero-nature) {
-  animation: ajecch-enter .55s ease-out both;
-}
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .glass-card { transition: transform .32s ease, box-shadow .32s ease, border-color .32s ease; }
   .glass-card:hover {
@@ -1216,5 +1213,4 @@ h1, h2, h3, .footer-message, .footer-verse-column blockquote {
   html { scroll-behavior: auto; }
   *, *:before, *:after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   .has-scroll-reveal [data-reveal] { opacity: 1 !important; transform: none !important; }
-  .has-scroll-reveal main > section:not(.hero-nature) { animation: none !important; }
 }
