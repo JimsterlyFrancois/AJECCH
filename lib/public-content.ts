@@ -73,17 +73,22 @@ export async function getPublishedPosts() {
 
   const { data, error } = await client
     .from("ajecch_posts")
-    .select("id,slug,title,excerpt,body,category,published_at,event_starts_at,event_ends_at,event_location,cover_media_id")
+    .select("id,slug,title,excerpt,body,category,published_at,event_starts_at,event_ends_at,event_location,cover_media_id,cover_media:ajecch_media!ajecch_posts_cover_media_id_fkey(storage_path,source_url,is_visible)")
     .eq("status", "published")
     .order("published_at", { ascending: false });
 
   if (error || !data) return [] as PublicPost[];
 
-  const media = await getSiteMedia();
-  return (data as PublicPost[]).map((post) => ({
-    ...post,
-    cover_url: post.cover_media_id
-      ? Object.values(media).find((url) => url && url.length > 0) ?? null
-      : null
-  }));
+  return data.map((row) => {
+    const post = row as PublicPost & {
+      cover_media?: { storage_path: string | null; source_url: string | null; is_visible: boolean } | null;
+    };
+    const cover = post.cover_media;
+    const coverUrl = !cover || !cover.is_visible
+      ? null
+      : cover.storage_path
+        ? client.storage.from("ajecch-public-media").getPublicUrl(cover.storage_path).data.publicUrl
+        : cover.source_url;
+    return { ...post, cover_url: coverUrl };
+  });
 }
