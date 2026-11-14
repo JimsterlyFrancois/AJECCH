@@ -1,15 +1,20 @@
 import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
+import { getSiteMedia } from "@/lib/public-content";
 
 export const metadata = {
   title: "À propos | AJECCH",
   description: "Découvrez l'Association des Jeunes Chrétiens du Cap-Haïtien."
 };
 
-export default function AboutPage() {
+export const dynamic = "force-dynamic";
+
+export default async function AboutPage() {
+  const media = await getSiteMedia();
+  const logoUrl = media["brand.logo"] ?? null;
   return (
     <>
-      <SiteHeader active="/a-propos" />
+      <SiteHeader active="/a-propos" logoUrl={logoUrl} />
       <main>
         <section className="page-hero">
           <div className="container">
@@ -50,7 +55,7 @@ export default function AboutPage() {
           </div>
         </section>
       </main>
-      <SiteFooter />
+      <SiteFooter logoUrl={logoUrl} />
     </>
   );
 }
