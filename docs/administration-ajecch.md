@@ -20,9 +20,18 @@ Aucune clé \`service_role\` n’est utilisée dans le navigateur.
 ## Première activation du Super Admin
 
 1. Dans Supabase, ouvrir **Authentication → Users** et créer le compte du premier responsable AJECCH avec son adresse e-mail et son mot de passe. Confirmer le compte selon les réglages d’authentification du projet.
-2. Se connecter sur \`/administration/connexion\`.
-3. À la première visite de \`/administration\`, saisir le nom d’affichage et le code d’initialisation transmis séparément au propriétaire du projet.
-4. Le code est à usage unique. Il est consommé au moment de la création du siège Super Admin 1.
+2. Dans le **SQL Editor** de Supabase, exécuter cette requête pour récupérer le code privé créé par la migration :
+
+   ```sql
+   select token
+   from private.ajecch_bootstrap_tokens
+   where used_at is null
+   limit 1;
+   ```
+
+3. Conserver ce code hors du dépôt Git et le transmettre uniquement au premier responsable autorisé. Ne pas le publier dans une issue, un document public ou une variable `NEXT_PUBLIC_`.
+4. Se connecter sur \`/administration/connexion\`, puis ouvrir \`/administration\` et saisir le nom d’affichage et le code.
+5. Le code est à usage unique. Il est consommé au moment de la création du siège Super Admin 1.
 
 ## Ajouter les deux autres comptes
 
