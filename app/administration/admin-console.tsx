@@ -168,6 +168,7 @@ export default function AdminConsole({ admin }: { admin: AjecchAdmin }) {
       const ends = String(form.get("event_ends_at") ?? "");
       const values = {
         slug,
+        cover_media_id: String(form.get("cover_media_id") ?? "") || null,
         title,
         excerpt: String(form.get("excerpt") ?? "").trim(),
         body: String(form.get("body") ?? "").trim(),
@@ -332,9 +333,9 @@ export default function AdminConsole({ admin }: { admin: AjecchAdmin }) {
         {tab === "posts" && (
           <div className="admin-content">
             <div className="admin-section-intro"><h2>Actualités, annonces et événements</h2><p>Les brouillons ne sont pas visibles du public. Une publication est mise en ligne uniquement lorsque son statut est « Publié ».</p></div>
-            <PostEditor key="new-post" onSave={(event) => savePost({}, event)} busy={busy} />
+            <PostEditor key="new-post" media={media} onSave={(event) => savePost({}, event)} busy={busy} />
             <div className="admin-post-list">
-              {posts.map((post) => <PostEditor key={post.id} post={post} onSave={(event) => savePost(post, event)} onDelete={() => void deletePost(post)} busy={busy} />)}
+              {posts.map((post) => <PostEditor key={post.id} post={post} media={media} onSave={(event) => savePost(post, event)} onDelete={() => void deletePost(post)} busy={busy} />)}
               {posts.length === 0 && <p className="admin-empty">Aucune publication enregistrée.</p>}
             </div>
           </div>
@@ -376,6 +377,7 @@ export default function AdminConsole({ admin }: { admin: AjecchAdmin }) {
 
 function PostEditor({ post, onSave, onDelete, busy }: {
   post?: PostItem;
+  media: MediaItem[];
   onSave: (event: FormEvent<HTMLFormElement>) => void;
   onDelete?: () => void;
   busy: boolean;
