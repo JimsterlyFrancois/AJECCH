@@ -2066,7 +2066,7 @@ h1, h2, h3 { color: #1B3B2B; }
 .admin-team-row > div:first-child { display: grid; gap: 5px; }
 .admin-team-row strong { color: #304A3A; font-size: 11px; }
 .admin-team-row small { color: #7A857B; font-size: 9px; }
-.admin-team-actions { display: flex; align-items: center; flex-wrap: wrap; justify-content: end; gap: 8px; }
+.admin-team-actions { display: flex; align-items: center; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
 .admin-team-actions button { padding: 7px 9px; border: 1px solid #DDE5DC; border-radius: 8px; color: #42604B; background: #F6F8F3; font-size: 9px; cursor: pointer; }
 .admin-team-actions .admin-danger-text { color: #993F35; border-color: #F0DCD7; background: #FCF3F0; }
 .admin-status-on, .admin-status-off { padding: 6px 8px; border-radius: 999px; font-size: 8px; font-weight: 800; }
