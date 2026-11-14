@@ -183,26 +183,31 @@ export default async function Home() {
             </div>
             <p>Retrouvez ici les dates annoncées et les informations pratiques confirmées par l’association.</p>
           </div>
-          <article className="agenda-event glass-card" data-reveal>
-            <div className="event-date">
-              <span>05 — 14</span>
-              <strong>FÉV.</strong>
-              <small>2027</small>
-            </div>
-            <div className="event-details">
-              <span className="event-status"><i /> RENDEZ-VOUS ANNONCÉ</span>
-              <h3>#REFLEXE GÉNIE</h3>
-              <p>1ère édition · Cap-Haïtien</p>
-              <small>Les horaires, le lieu précis et les modalités de participation seront communiqués par l’association.</small>
-            </div>
-            <a
-              className="event-link"
-              href="https://www.facebook.com/AJECCH"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Consulter les informations officielles de l'événement"
-            >↗</a>
-          </article>
+          {events.length > 0 ? events.slice(0, 4).map((event) => {
+            const starts = event.event_starts_at ? new Date(event.event_starts_at) : null;
+            const ends = event.event_ends_at ? new Date(event.event_ends_at) : starts;
+            const dayLabel = starts ? starts.toLocaleDateString("fr-FR", { day: "2-digit" }) : "—";
+            const endDay = ends ? ends.toLocaleDateString("fr-FR", { day: "2-digit" }) : "";
+            const monthLabel = starts ? starts.toLocaleDateString("fr-FR", { month: "short" }).replace(".", "").toUpperCase() : "DATE";
+            const yearLabel = starts ? starts.toLocaleDateString("fr-FR", { year: "numeric" }) : "";
+            const sameMonth = Boolean(starts && ends && starts.getMonth() === ends.getMonth());
+            return (
+              <article className="agenda-event glass-card" data-reveal key={event.id}>
+                <div className="event-date">
+                  <span>{sameMonth && endDay ? `${dayLabel} — ${endDay}` : dayLabel}</span>
+                  <strong>{monthLabel}</strong>
+                  <small>{yearLabel}</small>
+                </div>
+                <div className="event-details">
+                  <span className="event-status"><i /> RENDEZ-VOUS ANNONCÉ</span>
+                  <h3>{event.title}</h3>
+                  <p>{event.excerpt || event.event_location || "Informations à venir"}</p>
+                  <small>{event.body}</small>
+                </div>
+                <a className="event-link" href={`/actualites#${event.slug}`} aria-label={`Lire les détails : ${event.title}`}>↗</a>
+              </article>
+            );
+          }) : null}
           <p className="agenda-footnote">Les informations de cet agenda seront complétées selon les communications officielles de l’AJECCH.</p>
         </div>
       </section>
